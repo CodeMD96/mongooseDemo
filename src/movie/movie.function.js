@@ -47,3 +47,19 @@ exports.updateMovie = async (updateObj) => {
         mongoose.disconnect();
     }
 }
+
+exports.deleteMovie = async (movieObj) => {
+    try {
+        const movie = await Movie.find( {title: movieObj.title} );
+        if (movie[0]) {
+            await Movie.deleteOne({title: movieObj.title})
+            console.log("Successfully deleted")
+        } else {
+            console.log("Movie doesn't exist")
+        }
+        mongoose.disconnect();
+    } catch (error) {
+        console.log(error);
+        mongoose.disconnect();
+    }
+}
